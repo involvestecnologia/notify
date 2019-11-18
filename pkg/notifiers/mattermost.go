@@ -8,12 +8,12 @@ import (
 	"github.com/involvestecnologia/notify/pkg/models"
 )
 
-type mattermostNotifier interface {
+type MattermostNotifier interface {
 	Notifier
 	CustomNotify(...models.MattermostMessage) error
 }
 
-func MM(url string) mattermostNotifier {
+func MM(url string) MattermostNotifier {
 	if url == "" {
 		fmt.Println("Missing mattermost webhook URL")
 		os.Exit(1)

@@ -7,12 +7,12 @@ import (
 	"os"
 )
 
-type slackNotifier interface {
+type SlackNotifier interface {
 	Notifier
 	CustomNotify(...models.SlackMessage) error
 }
 
-func Slack(url string) slackNotifier {
+func Slack(url string) SlackNotifier {
 	if url == "" {
 		fmt.Println("Missing slack webhook URL")
 		os.Exit(1)
