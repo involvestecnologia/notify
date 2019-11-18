@@ -6,8 +6,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	mmModels "github.com/mattermost/mattermost-server/model"
 	"github.com/involvestecnologia/notify/pkg/models"
+	mmModels "github.com/mattermost/mattermost-server/model"
 )
 
 const (
@@ -52,7 +52,7 @@ func (m *mattermostNotifier) notify(e models.MessageEnvelope) error {
 		var msg models.MattermostMessage
 		msg.Username = e.From
 		msg.ChannelName = e.To[i]
-		msg.IconURL = "https://pbs.twimg.com/media/C7dSSLJVsAAvihC.png"
+		msg.IconURL = "https://avatars0.githubusercontent.com/u/17482172?s=200&v=4"
 		msg.Attachments = []*mmModels.SlackAttachment{
 			&mmModels.SlackAttachment{
 				Color: defaultColor,
