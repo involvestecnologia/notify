@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	defaultSMTPServer = "stmp.gmail.com:587"
+	defaultSMTPServer = "smtp.gmail.com:587"
 	messageTemplate   = `From: %s
 To: %s
 Subject: %s
