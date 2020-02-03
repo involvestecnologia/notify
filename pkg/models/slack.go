@@ -2,7 +2,7 @@ package models
 
 import (
 	"encoding/json"
-	mmModels "github.com/mattermost/mattermost-server/model"
+	mmModels "github.com/mattermost/mattermost-server/v5/model"
 )
 
 func (s *SlackMessage) ToJson() string {

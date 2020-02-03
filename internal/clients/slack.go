@@ -6,8 +6,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	mmModels "github.com/mattermost/mattermost-server/model"
 	"github.com/involvestecnologia/notify/pkg/models"
+	mmModels "github.com/mattermost/mattermost-server/v5/model"
 )
 
 type slackNotifier struct {
