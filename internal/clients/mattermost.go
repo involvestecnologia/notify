@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	"github.com/involvestecnologia/notify/pkg/models"
-	mmModels "github.com/mattermost/mattermost-server/model"
+	mmModels "github.com/mattermost/mattermost-server/v5/model"
 )
 
 const (
