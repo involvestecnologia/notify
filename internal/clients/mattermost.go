@@ -16,25 +16,28 @@ const (
 )
 
 type mattermostNotifier struct {
-	url    string
-	client *http.Client
+	url      string
+	defaults models.Options
+	client   *http.Client
 }
 
-func NewMattermostNotifier(u string) *mattermostNotifier {
+func NewMattermostNotifier(u string,options models.Options) *mattermostNotifier {
 	return &mattermostNotifier{
 		url:    u,
+		defaults:options,
 		client: http.DefaultClient,
 	}
 }
 
-func (m *mattermostNotifier) Notify(e ...models.MessageEnvelope) error {
-	for i := range e {
-		err := m.notify(e[i])
-		if err != nil {
-			return err
-		}
+func (m *mattermostNotifier) Notify(from string, to []string, message string, subject string) error {
+	e := models.MessageEnvelope{
+		From:    from,
+		To:      to,
+		Message: message,
+		Subject: subject,
 	}
-	return nil
+	e.SetDefaults(m.defaults)
+	return m.notify(e)
 }
 
 func (m *mattermostNotifier) CustomNotify(msgs ...models.MattermostMessage) error {

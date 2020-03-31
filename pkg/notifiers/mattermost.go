@@ -13,10 +13,10 @@ type MattermostNotifier interface {
 	CustomNotify(...models.MattermostMessage) error
 }
 
-func MM(url string) MattermostNotifier {
+func MM(url string, opts models.Options) MattermostNotifier {
 	if url == "" {
 		fmt.Println("Missing mattermost webhook URL")
 		os.Exit(1)
 	}
-	return clients.NewMattermostNotifier(url)
+	return clients.NewMattermostNotifier(url,opts)
 }

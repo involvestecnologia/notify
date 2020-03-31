@@ -17,19 +17,22 @@ Subject: %s
 )
 
 type gmailNotifier struct {
-	auth smtp.Auth
+	auth     smtp.Auth
+	defaults models.Options
 }
 
-func Gmail(user, password string) Notifier {
-	return &gmailNotifier{auth: smtp.PlainAuth(user, user, password, strings.Split(defaultSMTPServer, ":")[0])}
+func Gmail(user, password string, opts models.Options) Notifier {
+	return &gmailNotifier{auth: smtp.PlainAuth(user, user, password, strings.Split(defaultSMTPServer, ":")[0]),defaults:opts}
 }
 
-func (g *gmailNotifier) Notify(messages ...models.MessageEnvelope) error {
-	for _, m := range messages {
-		msg := fmt.Sprintf(messageTemplate, m.From, strings.Join(m.To, ","), m.Subject, m.Message)
-		if err := smtp.SendMail(defaultSMTPServer, g.auth, m.From, m.To, []byte(msg)); err != nil {
-			return err
-		}
+func (g *gmailNotifier) Notify(from string, to []string, message string, subject string) error {
+	m := models.MessageEnvelope{
+		From:    from,
+		To:      to,
+		Message: message,
+		Subject: subject,
 	}
-	return nil
+	m.SetDefaults(g.defaults)
+	msg := fmt.Sprintf(messageTemplate, m.From, strings.Join(m.To, ","), m.Subject, m.Message)
+	return smtp.SendMail(defaultSMTPServer, g.auth, m.From, m.To, []byte(msg))
 }

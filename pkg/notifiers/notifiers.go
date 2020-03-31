@@ -1,9 +1,6 @@
 package notifiers
 
-import (
-	"github.com/involvestecnologia/notify/pkg/models"
-)
-
 type Notifier interface {
-	Notify(e ...models.MessageEnvelope) error
+	Notify(from string, to []string, message string, subject string) error
 }
+

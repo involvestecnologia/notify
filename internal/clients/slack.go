@@ -22,23 +22,17 @@ func NewSlackNotifier(u string) *slackNotifier {
 	}
 }
 
-func (s *slackNotifier) Notify(e ...models.MessageEnvelope) error {
-	for i := range e {
+func (s *slackNotifier) Notify(from string, to []string, message string, subject string) error {
 		msg := models.SlackMessage{
 			Attachments: []*mmModels.SlackAttachment{
 				&mmModels.SlackAttachment{
 					Color: defaultColor,
-					Title: e[i].Subject,
-					Text:  e[i].Message,
+					Title: subject,
+					Text:  message,
 				},
 			},
 		}
-		err := s.sendMessage([]byte(msg.ToJson()))
-		if err != nil {
-			return err
-		}
-	}
-	return nil
+	return s.sendMessage([]byte(msg.ToJson()))
 }
 
 func (s *slackNotifier) CustomNotify(msgs ...models.SlackMessage) error {

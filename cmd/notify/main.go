@@ -72,9 +72,9 @@ func main() {
 }
 
 func sendMM(e models.MessageEnvelope) {
-	notifiers.MM(conf.GetString("webhook.mm")).Notify(e)
+	notifiers.MM(conf.GetString("webhook.mm"),models.Options{}).Notify(e.From,e.To,e.Message,e.Subject)
 }
 
 func sendSlack(e models.MessageEnvelope) {
-	notifiers.Slack(conf.GetString("webhook.slack")).Notify(e)
+	notifiers.Slack(conf.GetString("webhook.slack")).Notify("",nil,e.Message,e.Subject)
 }
